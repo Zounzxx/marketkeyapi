@@ -4,7 +4,7 @@ const app = express();
 
 const config = {
   ownerid: "c3ctpOZt7u",
-  appname: "Marketada",
+  name: "Marketada",
   version: "1.0"
 };
 
@@ -15,16 +15,18 @@ app.get("/verificar", async (req, res) => {
   }
 
   const data = {
-    type: "login",
-    key: key,
-    name: config.appname,
-    ownerid: config.ownerid,
-    version: config.version
-  };
+  type: "login",
+  key: key,
+  name: config.name,
+  ownerid: config.ownerid,
+  version: config.version
+};
 
   try {
     const response = await axios.post("https://keyauth.win/api/1.3/", data, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
 
     return res.json(response.data);
