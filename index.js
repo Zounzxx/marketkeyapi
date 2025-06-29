@@ -11,17 +11,17 @@ const config = {
 app.get("/verificar", async (req, res) => {
   const key = req.query.key;
 
-  if (!key) return res.status(400).json({ success: false, message: "Key não enviada" });
+  if (!key) {
+    return res.status(400).json({ success: false, message: "Key não enviada" });
+  }
 
   const data = {
     type: "login",
-    key,
-    name: config.name,
+    key: key,
     ownerid: config.ownerid,
+    appname: config.name,
     version: config.version
   };
-
-  console.log("🔍 Enviando para KeyAuth:", data);
 
   try {
     const response = await axios.post("https://keyauth.win/api/1.3/", data, {
@@ -30,10 +30,15 @@ app.get("/verificar", async (req, res) => {
 
     return res.json(response.data);
   } catch (err) {
-    console.error("Erro ao verificar key:", err?.response?.data || err.message);
+    console.error(err?.response?.data || err.message);
     return res.status(500).json({ success: false, message: "Erro ao verificar key" });
   }
 });
 
-app.get("/", (_, res) => res.send("API KeyAuth Online ✅"));
-app.listen(process.env.PORT || 3000, () => console.log("🚀 Servidor rodando"));
+app.get("/", (_, res) => {
+  res.send("✅ API KeyAuth Online");
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("✅ Servidor rodando");
+});
