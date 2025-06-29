@@ -1,11 +1,12 @@
 const express = require("express");
+console.log("DADOS ENVIADOS:", data);
 const axios = require("axios");
 const app = express();
 
 const config = {
-  ownerid: "c3ctpOZt7u",     // <- Seu ownerid real do KeyAuth
-  name: "Marketada",         // <- Nome da sua aplicação no KeyAuth
-  version: "1.0"             // <- Versão configurada no painel
+  ownerid: "c3ctpOZt7u",
+  name: "Marketada",
+  version: "1.0"
 };
 
 app.get("/verificar", async (req, res) => {
@@ -15,13 +16,16 @@ app.get("/verificar", async (req, res) => {
     return res.status(400).json({ success: false, message: "Key não enviada" });
   }
 
-  const data = {
-    type: "login",
-    key: key,
-    name: config.name,
-    ownerid: config.ownerid,
-    version: config.version
-  };
+const data = {
+  type: "login",
+  key: key,
+  name: config.name,
+  ownerid: config.ownerid,
+  version: config.version
+};
+
+console.log("📦 DADOS ENVIADOS PARA KEYAUTH:", data);
+
 
   try {
     const response = await axios.post("https://keyauth.win/api/1.3/", data, {
