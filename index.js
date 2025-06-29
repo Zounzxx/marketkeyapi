@@ -3,9 +3,9 @@ const axios = require("axios");
 const app = express();
 
 const config = {
-  ownerid: "c3ctpOZt7u",
-  appname: "Marketada",
-  version: "1.0"
+  ownerid: "c3ctpOZt7u",          // ← seu OwnerID no KeyAuth
+  appname: "Marketada",           // ← nome do app criado no KeyAuth
+  version: "1.0"                  // ← versão configurada no app
 };
 
 app.get("/verificar", async (req, res) => {
@@ -15,7 +15,7 @@ app.get("/verificar", async (req, res) => {
   }
 
   const data = {
-    type: "login",
+    type: "login",                // ← obrigatório, mesmo para só key
     key: key,
     name: config.appname,
     ownerid: config.ownerid,
@@ -37,9 +37,9 @@ app.get("/verificar", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("🟢 API do Marketada está online!");
+  res.send("🟢 API do Marketada Online (KeyAuth v1.3)");
 });
 
 app.listen(3000, () => {
-  console.log("Servidor rodando na porta 3000");
+  console.log("✅ Servidor rodando na porta 3000");
 });
